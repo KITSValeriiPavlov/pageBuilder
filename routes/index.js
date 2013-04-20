@@ -1,19 +1,16 @@
-define([], function() {
-	var requirejs = require('requirejs');
-	
-	requirejs(['fs', 'xml2js', 'config'], function (fs, xml2js, config) {
-		return function (req, res) {
-			var cache = {},
+define([],function() {
+	return requirejs(['fs', 'xml2js', 'config'], function (fs, xml2js, config) {
+		var cache = {},
 			parseString = xml2js.parseString,
 			xmlPath = config.path.xml;
-			
+
 		function getPageConfig (path, callback) {
 			fs.readFile(path, "utf-8", function (err, data) {
 				if (err) return callback(err);
 				var separator = path.indexOf('/') !== -1 ? '/' : '\\',
 					chunks = path.split(separator),
 					name = chunks[chunks.length - 1];
-					
+
 				parseString(data, function (err, json) {
 					if (err) callback(err);
 					callback(null, {
@@ -21,11 +18,12 @@ define([], function() {
 						data : JSON.stringify(json)
 					});
 				})
-				
+
 			});
 		}
 		function getFilesList(dirPath, callback) {
 			//if (!fs) var fs = require('fs');
+			console.log('dirPath : ' + dirPath)
 			fs.readdir(dirPath, function (err, data) {
 				if (err) return callback(err, null);
 				callback(null, data);
@@ -50,17 +48,14 @@ define([], function() {
 			});
 		}
 		getFilesList(xmlPath, function (err, files) {
-			console.log(xmlPath)
 			var filesList = getFullFilesPath(files, xmlPath);
-			
-			iterator(filesList, getPageConfig, function (err, data) {
+
+			/*iterator(filesList, getPageConfig, function (err, data) {
 				res.render('index', {
 					title: 'Express',
 					pages : data
 				});
-			});
+			});*/
 		});
-		}
 	});
-	
 });

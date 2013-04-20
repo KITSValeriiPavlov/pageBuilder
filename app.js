@@ -1,16 +1,15 @@
 
 var requirejs = require('requirejs'),
 	app = null;
-	
+
 	requirejs.config({
 		baseUrl: __dirname,
-		routes : 'routes',
+		rout : 'routes',
 		nodeRequire: require
 	});
 
-requirejs(['express', 'routes/index'], function (express, routIndex) {
+requirejs(['express', 'routes/mainRouter'], function (express, mainRouter) {
 	app = module.exports = express.createServer();
-	
 	// Configuration
 	
 	app.configure(function() {
@@ -34,9 +33,8 @@ requirejs(['express', 'routes/index'], function (express, routIndex) {
 	});
 	
 	// Routes
-	
-	app.get('/', routIndex);
-	
+	mainRouter(app);
+
 	app.listen(8000, function() {
 		console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 	}); 
