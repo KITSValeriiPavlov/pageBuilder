@@ -1,9 +1,19 @@
 {
-    "name": "application-name"
-  , "version": "0.0.1"
-  , "private": true
-  , "dependencies": {
-      "express": "2.5.8"
-    , "jade": ">= 0.0.1"
-  }
+	"name": "pageBuilder",
+	"author" : "Valerii Pavlov",
+	"version": "0.0.1",
+	"private": true,
+	"description" : "Simpe static page builder",
+	"readmeFilename": "README.md",
+	"scripts" : {
+		"start" : "node app.js",
+		"test" : "supervisor -w helpers,public,routes,views,app.js,config.js app"
+	},
+	"dependencies": {
+		"express": "2.5.8",
+		"jade": ">= 0.0.1",
+		"async": "*",
+		"underscore" : "*",
+		"requirejs" : "*"
+	}
 }
