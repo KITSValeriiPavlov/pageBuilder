@@ -1,6 +1,16 @@
 h1= title
 ol.pages
-	each page in pages
+	each item in pages
 		li
-			h2= page.name
-			pre.description=page.data
+			h2= item.page.$.name
+			h3 config
+			dl
+				each elem in item.page.settings
+					each value, key in elem
+						dt= key
+						dd= value
+			h3 modules
+			ul
+				each module in item.page.modules
+					li= module
+			pre= JSON.stringify(item)

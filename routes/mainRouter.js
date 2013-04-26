@@ -1,12 +1,18 @@
-define(['helpers/xmlConfigParser', 'config'], function(xmlConfParser, config) {
+define(['helpers/xmlConfigParser', 'config', 'fs', 'async'], function(xmlConfParser, config, fs, async) {
 	return function(app) {
 		
-		new xmlConfParser();
+		var confParser = new xmlConfParser();
 		app.get('/', test);
 		function test (req, res) {
-			res.render('index', {
-				title: 'Express',
-				pages : [1,2,3,4,5]
+			confParser.getFilesList(function (err, data) {
+				if (err) res.end(err);
+				async.map(data, confParser.parseFile, function (err, data) {
+					if (err) res.end(err);
+					res.render('index', {
+						title: 'Express',
+						pages : data
+					});
+				})
 			});
 		}
 	};
