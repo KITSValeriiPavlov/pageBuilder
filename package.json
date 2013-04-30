@@ -10,6 +10,7 @@
 		"test" : "supervisor -w helpers,public,routes,views,app.js,config.js app"
 	},
 	"dependencies": {
+		"mocha" : "*",
 		"express": "2.5.8",
 		"jade": ">= 0.0.1",
 		"async": "*",

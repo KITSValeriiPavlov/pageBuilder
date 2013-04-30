@@ -1,16 +1,26 @@
 h1= title
-ol.pages
-	each item in pages
+
+ul 
+	each page in pages
 		li
-			h2= item.page.$.name
-			h3 config
+			h2= page.name
 			dl
-				each elem in item.page.settings
-					each value, key in elem
-						dt= key
-						dd= value
-			h3 modules
-			ul
-				each module in item.page.modules
-					li= module
-			pre= JSON.stringify(item)
+				dt title 
+				dd= page.title
+				dt release 
+				dd= page.release
+				dt layout 
+				dd= page.layout
+			table(border=1)
+				caption 
+					strong Modules
+						
+				tr
+					th Name
+					th Target
+					th Id
+					th Js
+				each module in page.modules
+					tr
+						each val,key in module
+							td= val
